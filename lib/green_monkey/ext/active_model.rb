@@ -6,6 +6,10 @@ module GreenMonkey
 
     def html_schema_type
       self.class.html_schema_type
+    end                                                                
+    
+    def has_html_schema_type?
+      self.class.has_html_schema_type?
     end
 
     module ClassMethods
@@ -21,6 +25,10 @@ module GreenMonkey
 
         @html_schema_type = value
         @html_schema_options = options
+      end
+      
+      def has_html_schema_type?
+         html_schema_type.present?
       end
     end
   end

@@ -44,7 +44,7 @@ class Haml::Buffer
           opts[:id]= "#{opts[:class]}_#{tmp_id || 'new'}"          
 
           # hack for microdata attributes
-          if part.respond_to?(:html_schema_type) && part.html_schema_type != nil
+          if part.has_html_schema_type?
             opts[:itemscope] = true
             opts[:itemid] = part.id
 
