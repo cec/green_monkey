@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20111023054000) do
     t.text     "body"
     t.string   "link"
     t.datetime "published_at"
+    t.references 'category'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -45,15 +46,25 @@ ActiveRecord::Schema.define(:version => 20111023054000) do
     t.string   "github"
     t.string   "password"
   end
+  
+  create_table 'categories' do |t|
+    t.string :name
+  end
 end
 
 class Post < ActiveRecord::Base
   html_schema_type :BlogPosting
+  belongs_to :category
 end
 
 class User < ActiveRecord::Base
   html_schema_type "http://example.com/User"
 end
+
+class Category < ActiveRecord::Base
+  has_many :posts
+end
+
 
 module TestInlineRenderer
   def render_file(file, options = {})

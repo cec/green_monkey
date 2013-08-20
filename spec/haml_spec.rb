@@ -24,7 +24,13 @@ describe "Haml generation" do
   it "should render itemprop attribute" do
     render_haml("%b['#title'] Dada").should =~ /itemprop=.?title/
   end
-  
+                                               
+  it 'should not render itemscope or itemid for models that have not specified an html_schema_type' do
+    category = Category.create
+    str = render_haml("%span[category]", category: category)
+    
+    str.should_not =~ /itemscope/
+  end
 
   it 'should render itemscope for Mida::Vocabulary' do
     str = render_haml("%b[Mida(:Event)]")
