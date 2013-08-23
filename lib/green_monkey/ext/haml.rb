@@ -23,7 +23,7 @@ class Haml::Buffer
       return if ref.nil?
       opts = {}                               
       prefix = ''
-      with_schema = ref.last.is_a?(FalseClass) ? ref.pop : true
+      with_schema = ( ref.last.is_a?(TrueClass) || ref.last.is_a?(FalseClass) ) ? ref.pop : true
 
       ref.each do |part|
         if part.is_a? Symbol
