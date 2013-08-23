@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "mida"
   s.add_development_dependency 'sqlite3'
 
-  s.files        = `git ls-files`.split("\n")
+  s.files = Dir['Gemfile', 'README.md', 'Rakefile', 'lib/**/*']
   s.executables  = []
   s.require_paths = ["lib"]
 end
