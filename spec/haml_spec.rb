@@ -28,7 +28,16 @@ describe "Haml generation" do
   it 'should not render itemscope or itemid for models that have not specified an html_schema_type' do
     category = Category.create
     str = render_haml("%span[category]", category: category)
-    
+    str.should_not =~ /itemscope/
+  end
+
+  it 'should not render schema properties if asked not to' do
+    user = User.create
+    tpl = "%article[user, false]"
+    str = render_haml(tpl, user: user)
+
+    str.should_not =~ /itemtype=('|")#{Regexp.escape 'http://example.com/User'}('|")/
+    str.should_not =~ /itemid=.?#{user.id}/
     str.should_not =~ /itemscope/
   end
 
