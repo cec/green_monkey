@@ -13,7 +13,7 @@ require "haml"
 # => <section itemscope itemtype="http://schema.org/Blog/SexJokes">
 # according to "Extension Mechanism" at http://schema.org/docs/extension.html
 #
-# %span[:title] Hello
+# %span['#title'] Hello
 # => <span itemprop="title">Hello</span>
 
 class Haml::Buffer
@@ -23,6 +23,8 @@ class Haml::Buffer
       return if ref.nil?
       opts = {}                               
       prefix = ''
+      with_schema = ref.last.is_a?(Boolean) ? ref.pop : true
+
       ref.each do |part|
         if part.is_a? Symbol
           prefix = "#{part.to_s}_"
@@ -55,12 +57,13 @@ class Haml::Buffer
               opts[:itemtype] = part.html_schema_type
             end
           end
-         
-        end          
-         
-      end 
+        end
+      end
       opts[:class] = prefix + opts[:class] if opts.key? :class
       opts[:id] = prefix + opts[:id] if opts.key? :id
+
+      # Remove Schema.org keys if the last form was used
+      opts = opts.except(:itemscope, :itemid, :itemtype, :itemprop) unless with_schema
       opts.stringify_keys
     end
    
