@@ -66,7 +66,5 @@ class Haml::Buffer
       opts = opts.except(:itemscope, :itemid, :itemtype, :itemprop) unless with_schema
       opts.stringify_keys
     end
-   
-
 
 end
